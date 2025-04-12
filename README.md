@@ -1,40 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# GP Espetinhos 🍢🔥
 
-## Getting Started
+Bem-vindo ao repositório do **GP Espetinhos**, um site moderno e responsivo para um distribuidor de espetinhos. O projeto foi desenvolvido com **Next.js** e **Tailwind CSS**, seguindo a abordagem **mobile-first** para proporcionar a melhor experiência aos usuários.
 
-First, run the development server:
+## 🚀 Tecnologias Utilizadas
 
+- **Next.js** - Framework React para aplicações web rápidas e otimizadas.
+- **Tailwind CSS** - Para um design moderno e responsivo.
+- **Node.js** - Backend para gerenciamento de produtos.
+- **Vercel** - Hospedagem rápida e eficiente.
+
+## 📌 Funcionalidades
+
+### 🎨 Interface do Cliente
+- **Página Inicial:** Banner chamativo, informações sobre o GP Espetinhos e chamada para ação.
+- **Cardápio:** Exibição de produtos com imagens, nomes e preços.
+- **Contato:** Informações da empresa e botão direto para o WhatsApp.
+- **Botão de WhatsApp Flutuante:** Presente nas páginas *index* e *cardápio*.
+
+### 🔐 Painel do Administrador
+- **Login Seguro:** Acesso restrito para gerenciamento do cardápio.
+- **Gerenciamento de Produtos:** Adicionar, editar e excluir itens do cardápio.
+
+## 🛠️ Como Rodar o Projeto
+
+1️⃣ Clone este repositório:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/seu-usuario/gp-espetinhos.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2️⃣ Acesse o diretório do projeto:
+```bash
+cd gp-espetinhos
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+3️⃣ Instale as dependências:
+```bash
+npm install
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+4️⃣ Inicie o servidor de desenvolvimento:
+```bash
+npm run dev
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+5️⃣ Acesse no navegador:
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📂 Estrutura do Projeto
 
-## Learn More
+```
+📂 gp-espetinhos
+ ┣ 📂 pages
+ ┃ ┣ 📜 index.js (Página Inicial)
+ ┃ ┣ 📜 cardapio.js (Cardápio)
+ ┃ ┣ 📜 contato.js (Contato)
+ ┃ ┣ 📜 admin.js (Painel do Administrador)
+ ┣ 📂 components
+ ┃ ┣ 📜 Navbar.js (Menu de Navegação)
+ ┃ ┣ 📜 Footer.js (Rodapé)
+ ┃ ┣ 📜 ProdutoCard.js (Exibição de Produtos)
+ ┣ 📂 public
+ ┃ ┣ 📜 imagens (Logos e fotos dos produtos)
+ ┣ 📜 package.json
+ ┣ 📜 tailwind.config.js
+ ┗ 📜 README.md
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🎯 Melhorias Futuras
+✅ Implementação de pedidos online.  
+✅ Integração com métodos de pagamento.  
+✅ Dashboard mais avançado para administração.  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+## 📌 Contato
+Caso tenha alguma dúvida ou sugestão, entre em contato!  
+📧 E-mail: eduardofklier@gmail.com  
+📱 WhatsApp: [Clique Aqui](https://wa.me/5511968299673)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
