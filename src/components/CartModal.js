@@ -1,10 +1,10 @@
 import { useCart } from "@/context/CartContext";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { FaTrash, FaMinus } from "react-icons/fa";
+import { FaTrash, FaMinus, FaTimes } from "react-icons/fa";
 
 export default function CartModal({ isOpen, onClose }) {
-  const { cartItems, removeItemFromCart, decreaseItemQuantity } = useCart();
+  const { cartItems, removeItemFromCart, decreaseItemQuantity, clearCart } = useCart();
 
   const modalRef = useRef();
 
@@ -42,6 +42,12 @@ export default function CartModal({ isOpen, onClose }) {
         ref={modalRef}
         className="bg-white w-full sm:w-96 h-full p-6 shadow-lg overflow-y-auto"
       >
+        <button
+          onClick={onClose}
+          className="absolute top-7 right-8 text-2xl md:hidden"
+        >
+          <FaTimes />
+        </button>
         <h2 className="text-2xl font-bold mb-4">Seu Carrinho</h2>
         {cartItems.length === 0 ? (
           <p className="text-gray-500">Seu carrinho está vazio.</p>
@@ -82,6 +88,18 @@ export default function CartModal({ isOpen, onClose }) {
             ))}
           </ul>
         )}
+
+        {cartItems.length > 0 && (
+          <div className="mt-4 flex justify-between">
+            <button
+              onClick={clearCart}
+              className="w-full py-2 bg-gray-500 text-white font-semibold rounded-md"
+            >
+              Limpar Carrinho
+            </button>
+          </div>
+        )}
+
         {cartItems.length > 0 && (
           <div className="border-t mt-6 pt-4">
             <div className="flex justify-between items-center text-lg font-bold mb-2">

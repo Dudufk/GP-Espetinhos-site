@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function PromoCarousel() {
   return (
-    <div className="max-w-4xl mx-auto my-6 rounded-lg overflow-hidden shadow-md">
+    <div className="max-w-4xl mx-auto mt-20 my-6 rounded-lg overflow-hidden shadow-md">
       <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false}>
         <div>
         <Image src="/assets/promocoes/promo1.png" alt="Promoção 1" width={1200} height={600} className="rounded-xl" />
