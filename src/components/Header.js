@@ -4,6 +4,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import CartModal from "./CartModal";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -36,17 +37,19 @@ export default function Header() {
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 bg-gray-100 p-4 shadow transition-transform duration-300 ease-in-out ${
-          !visible ? "transform -translate-y-full" : "transform translate-y-0"
-        }`}
+      {/* Usando motion.header para animação */}
+      <motion.header
+        initial={{ y: 0 }}
+        animate={{ y: visible ? 0 : -100 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="fixed top-0 left-0 right-0 z-50 bg-gray-100 p-4 shadow transition-transform duration-300 ease-in-out"
       >
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/">
             <Image
-              src="/assets/logo-redondo.png" // Caminho da imagem na pasta public
+              src="/assets/logo-redondo.png"
               alt="Logo GP Espetinhos"
-              width={50} // Ajuste o tamanho conforme necessário
+              width={50}
               height={50}
               className="cursor-pointer"
             />
@@ -70,7 +73,7 @@ export default function Header() {
             </button>
           </nav>
         </div>
-      </header>
+      </motion.header>
 
       {/* Carrinho */}
       <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
