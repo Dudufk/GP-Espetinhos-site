@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext } from "react";
 
 // Criando o contexto do carrinho
 export const CartContext = createContext();
@@ -7,6 +7,7 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [itemAdicionado, setItemAdicionado] = useState(false);
 
   const toggleCart = () => {
     setIsCartOpen((prevState) => !prevState); // Alterna o estado do carrinho
@@ -15,15 +16,23 @@ export const CartProvider = ({ children }) => {
   //Adiciona item ao carrinho, se o item já existe, aumenta a quantidade
   const addItemToCart = (product) => {
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find(item => item.nome === product.nome);
+      const existingItem = prevItems.find((item) => item.nome === product.nome);
       if (existingItem) {
-        return prevItems.map(item =>
-          item.nome === product.nome ? { ...item, quantity: item.quantity + 1 } : item
+        return prevItems.map((item) =>
+          item.nome === product.nome
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         );
       } else {
         return [...prevItems, { ...product, quantity: 1 }];
       }
     });
+
+    // Ativa o sinal de "item adicionado"
+    setItemAdicionado(true);
+    setTimeout(() => {
+      setItemAdicionado(false);
+    }, 2000);
   };
 
   // Diminui a quantidade de um item
@@ -61,7 +70,8 @@ export const CartProvider = ({ children }) => {
         addItemToCart,
         removeItemFromCart,
         clearCart,
-        decreaseItemQuantity
+        decreaseItemQuantity,
+        itemAdicionado,
       }}
     >
       {children}

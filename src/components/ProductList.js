@@ -1,9 +1,9 @@
 import ProductCard from './ProductCard'; // Importando o ProductCard
 
 const produtos = [
-  { nome: 'Espetinho de Carne', preco: 'R$ 6,00', imagem: '/assets/produtos/espetinho-carne.jpg' },
-  { nome: 'Espetinho de Frango', preco: 'R$ 5,00', imagem: '/assets/produtos/espetinho-frango.jpg' },
-  { nome: 'Espetinho de Queijo Coalho', preco: 'R$ 7,00', imagem: '/assets/produtos/espetinho-queijo.jpg' },
+  { id: 1, nome: 'Espetinho de Carne', preco: 'R$ 6,00', imagem: '/assets/produtos/espetinho-carne.jpg' },
+  { id: 2, nome: 'Espetinho de Frango', preco: 'R$ 5,00', imagem: '/assets/produtos/espetinho-frango.jpg' },
+  { id: 3, nome: 'Espetinho de Queijo Coalho', preco: 'R$ 7,00', imagem: '/assets/produtos/espetinho-queijo.jpg' },
 ];
 
 export default function ProductList() {

@@ -4,13 +4,15 @@ import { FaShoppingCart } from "react-icons/fa";
 import CartModal from "./CartModal";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 
 export default function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { cartItems } = useCart();
+  const { cartItems, itemAdicionado } = useCart();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [visible, setVisible] = useState(true);
+
+  const controls = useAnimation();
 
   // Soma total de itens no carrinho
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -19,21 +21,33 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY && window.scrollY > 50) {
-        // Rolando para baixo, esconder o header
         setVisible(false);
       } else if (window.scrollY < lastScrollY) {
-        // Rolando para cima, mostrar o header
         setVisible(true);
       }
       setLastScrollY(window.scrollY);
     };
 
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  // Efeito para forçar mostrar quando item adicionado
+  useEffect(() => {
+    if (itemAdicionado) {
+      setVisible(true);
+    }
+  }, [itemAdicionado]);
+
+  // Efeito para novo item no carrinho
+  useEffect(() => {
+    if (totalItems > 0) {
+      controls.start({
+        scale: [1, 1.3, 1],
+        transition: { duration: 0.2, ease: "easeOut" },
+      });
+    }
+  }, [totalItems, controls]);
 
   return (
     <>
@@ -41,7 +55,7 @@ export default function Header() {
       <motion.header
         initial={{ y: 0 }}
         animate={{ y: visible ? 0 : -100 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
         className="fixed top-0 left-0 right-0 z-50 bg-gray-100 p-4 shadow transition-transform duration-300 ease-in-out"
       >
         <div className="container mx-auto flex justify-between items-center">
@@ -59,7 +73,8 @@ export default function Header() {
             <Link href="/contato">Contato</Link>
 
             {/* Botão do carrinho com badge */}
-            <button
+            <motion.button
+              animate={controls}
               onClick={() => setIsCartOpen(true)}
               className="relative text-gray-700 hover:text-red-600"
               title="Abrir Carrinho"
@@ -70,7 +85,7 @@ export default function Header() {
                   {totalItems}
                 </span>
               )}
-            </button>
+            </motion.button>
           </nav>
         </div>
       </motion.header>

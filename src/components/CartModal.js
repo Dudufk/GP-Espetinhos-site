@@ -9,8 +9,15 @@ export default function CartModal({ isOpen, onClose }) {
     useCart();
 
   const [showOverlay, setShowOverlay] = useState(false);
-
+  const [isClearing, setIsClearing] = useState(false);
+  const [visibleItems, setVisibleItems] = useState([]);
   const modalRef = useRef();
+
+  useEffect(() => {
+    if (!isClearing) {
+      setVisibleItems(cartItems);
+    }
+  }, [cartItems, isClearing]);
 
   const total = cartItems.reduce((acc, item) => {
     const precoNumerico = parseFloat(
@@ -86,51 +93,64 @@ export default function CartModal({ isOpen, onClose }) {
               <p className="text-gray-500">Seu carrinho está vazio.</p>
             ) : (
               <ul className="space-y-4">
-                {cartItems.map((item, index) => (
-                  <li
-                    key={index}
-                    className="flex items-center gap-4 border-b pb-2"
-                  >
-                    <Image
-                      src={item.imagem}
-                      alt={item.nome}
-                      width={60}
-                      height={60}
-                      className="rounded"
-                    />
-                    <div className="flex-1">
-                      <h3 className="font-semibold">{item.nome}</h3>
-                      <p className="text-sm text-gray-600">
-                        Qtd: {item.quantity}
-                      </p>
-                      <p className="text-red-500">{item.preco}</p>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      {item.quantity > 1 ? (
-                        <button
-                          onClick={() => decreaseItemQuantity(item)}
-                          className="bg-gray-300 p-2 rounded"
-                        >
-                          <FaMinus />
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => removeItemFromCart(item)}
-                          className="bg-red-500 text-white p-2 rounded"
-                        >
-                          <FaTrash />
-                        </button>
-                      )}
-                    </div>
-                  </li>
-                ))}
+                <AnimatePresence>
+                  {visibleItems.map((item) => (
+                    <motion.li
+                      key={item.id}
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -50, backgroundColor: "#fff0f0" }}
+                      transition={{ duration: 0.3 }}
+                      className="flex items-center gap-4 border-b pb-2"
+                    >
+                      <Image
+                        src={item.imagem}
+                        alt={item.nome}
+                        width={60}
+                        height={60}
+                        className="rounded"
+                      />
+                      <div className="flex-1">
+                        <h3 className="font-semibold">{item.nome}</h3>
+                        <p className="text-sm text-gray-500">
+                          Qtd: {item.quantity}
+                        </p>
+                        <p className="text-red-500">{item.preco}</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        {item.quantity > 1 ? (
+                          <button
+                            onClick={() => decreaseItemQuantity(item)}
+                            className="bg-gray-300 p-2 rounded"
+                          >
+                            <FaMinus />
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => removeItemFromCart(item)}
+                            className="bg-red-500 text-white p-2 rounded"
+                          >
+                            <FaTrash />
+                          </button>
+                        )}
+                      </div>
+                    </motion.li>
+                  ))}
+                </AnimatePresence>
               </ul>
             )}
 
             {cartItems.length > 0 && (
               <div className="mt-4 flex justify-between">
                 <button
-                  onClick={clearCart}
+                  onClick={() => {
+                    setIsClearing(true);
+                    setVisibleItems([]); // <- Força os itens a sumirem visualmente
+                    setTimeout(() => {
+                      clearCart(); // <- Limpa o carrinho real
+                      setIsClearing(false);
+                    }, 300); // Tempo igual à animação de saída
+                  }}
                   className="w-full py-2 bg-gray-500 text-white font-semibold rounded-md"
                 >
                   Limpar Carrinho
